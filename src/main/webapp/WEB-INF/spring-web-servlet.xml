@@ -1,0 +1,58 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">   <context:component-scan base-package="com.shane"/>
+
+   <context:component-scan base-package="com.shane"/>
+
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/pages/"/>
+      <property name="suffix" value=".jsp"/>
+   </bean>
+
+   <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+   <!--To load the database properties-->
+   <context:property-placeholder location="classpath:application.properties"/>
+
+   <!-- DataSource -->
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="${spring.datasource.driverClassName}"/>
+      <property name="url" value="${spring.datasource.url}"/>
+      <property name="username" value="${spring.datasource.username}"/>
+      <property name="password" value="${spring.datasource.password}"/>
+   </bean>
+
+   <tx:annotation-driven/>
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+      <property name="dataSource" ref="dataSource"/>
+      <property name="hibernateProperties">
+         <props>
+            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+            <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+            <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+         </props>
+      </property>
+      <property name="packagesToScan" value="com.shane"/>
+   </bean>
+
+   <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+      <property name="sessionFactory" ref="sessionFactory"/>
+   </bean>
+
+   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+      <property name="basenames">
+         <array>
+            <value>field</value>
+            <value>message</value>
+            <value>error</value>
+         </array>
+      </property>
+   </bean>
+
+   <mvc:annotation-driven/>
+</beans>
