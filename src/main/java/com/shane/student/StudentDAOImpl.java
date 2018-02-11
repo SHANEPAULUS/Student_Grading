@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import com.shane.domain.AbstractDAO;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,15 +51,25 @@ public class StudentDAOImpl implements AbstractDAO<Student> {
       return (Student)this.sessionFactory.getCurrentSession().get(Student.class, pk);
    }
    
-   public Student findByName(final String lookupName){
-      return null;
-   }
-   
    @Override
    public List<Student> findAll(){
       List<Student> studentList = new LinkedList<>();
    
       for(final Object object : this.sessionFactory.getCurrentSession().createQuery("from Student order by LastName desc").list()){
+         Student student = (Student)object;
+         studentList.add(student);
+      }
+      
+      return studentList;
+   }
+   
+   
+   @Override
+   public List<Student> findByName(final String lookupName){
+      List<Student> studentList = new LinkedList<>();
+      Query query = this.sessionFactory.getCurrentSession().createQuery("from Student where upper(FirstName) like upper('%" + lookupName.trim() + "%') order by LastName desc");
+      
+      for(final Object object : query.list()){
          Student student = (Student)object;
          studentList.add(student);
       }

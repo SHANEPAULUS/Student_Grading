@@ -30,6 +30,9 @@
       <a href="<c:url value="/studentEdit.htm?pk=${student.pk}"/>"><spring:message code="Edit"/></a>
    </div>
    <div class="navigationButton" style="display: inline-block; padding-left: 5px;">
+      <a href="<c:url value="/studentScoreCapture.htm?pk=${student.pk}"/>"><spring:message code="Capture"/>&#160;<spring:message code="Score"/></a>
+   </div>
+   <div class="navigationButton" style="display: inline-block; padding-left: 5px;">
       <a href="<c:url value="/deleteStudent.htm?pk=${student.pk}"/>"><spring:message code="Delete"/></a></div>
    </div>
 </div>

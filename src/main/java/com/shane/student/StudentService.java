@@ -49,6 +49,6 @@ public class StudentService implements AbstractService<Student> {
    }
    
    public List<Student> findByName(final String lookupName){
-      return null;
+      return this.studentDAO.findByName(lookupName);
    }
 }

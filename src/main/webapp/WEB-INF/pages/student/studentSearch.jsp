@@ -3,8 +3,8 @@
    
    <script type="text/javascript">
       function submitSearch(){
-         /*var studentName = this.document.getElementById("studentNameSearch").value;
-         window.location = "<c:url value="/studentSearch.htm?studentName="/>" + studentName;*/
+         var studentName = this.document.getElementById("studentNameSearch").value;
+         window.location = "<c:url value="/studentSearch.htm?studentName="/>" + studentName;
       }
    </script>
 </head>
@@ -41,6 +41,11 @@
 </div>
 <br>
 
-<%@include file="includeStudentList.jsp"%>
+<c:if test="${showStudentList}">
+   <div id="studentTableWrapper">
+      <%@include file="includeStudentList.jsp"%>
+   </div>
+</c:if>
+
 
 <%@include file="../include/footer.jsp"%>

@@ -49,6 +49,17 @@ public class EditController extends GenericController {
    }
    
    
+   @GetMapping("/studentScoreCapture.htm")
+   public ModelAndView captureStudentScore(final HttpServletRequest request){
+      final int pk = ServletRequestUtils.getIntParameter(request, "pk", DomainObject.NEW_OBJECT_PK);
+      final Student student = this.studentService.read(pk);
+      
+      this.model.put("student", student);
+      
+      return new ModelAndView("student/studentScoreEdit");
+   }
+   
+   
    @PostMapping
    public ModelAndView submitStudent(@ModelAttribute(value="student") final Student student, final BindingResult bindingResult){
       ModelAndView modelAndView;

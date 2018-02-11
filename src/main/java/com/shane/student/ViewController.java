@@ -56,11 +56,20 @@ public class ViewController extends GenericController {
    @GetMapping("/studentSearch.htm")
    public ModelAndView searchStudent(final HttpServletRequest request){
       final String studentName = ServletRequestUtils.getStringParameter(request, "studentName", "");
+      boolean showStudentList = false;
       
       if(!studentName.trim().equals("")){   // We are definitely looking for a student...
          List<Student> studentList = this.studentService.findByName(studentName);
+         showStudentList = !studentList.isEmpty();
+         
+         if(!showStudentList){
+            this.model.put("notificationMessage", "Cannot find student with first name " + studentName);
+         }else{
+            this.model.put("studentList", studentList);
+         }
       }
       
+      this.model.put("showStudentList", showStudentList);
       return new ModelAndView("student/studentSearch", this.model);
    }
    

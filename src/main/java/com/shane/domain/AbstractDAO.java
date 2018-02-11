@@ -14,4 +14,7 @@ public interface AbstractDAO<T> {
    T delete(T t);
    T findOne(int pk);
    List<T> findAll();
+   List<T> findByName(String lookupName);
+   // Since the com.shane.grade package was deleted, we no longer need to have an abstract interface as it defeats the purpose.
+   // TODO: delete the AbstractDAO interface, DomainObject interface since we are working with Student as the core object.
 }
