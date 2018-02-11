@@ -61,17 +61,17 @@ public class StudentServiceTest {
    @Test
    public void hasNoUniqueFirstName(){
       studentService = mock(StudentService.class);
-      when(studentService.nameAlreayExists("shane")).thenReturn(true);   // Meaning the name 'shane' is already existing.
+      when(studentService.checkIfFirstNameAlreadyExist("shane")).thenReturn(true);   // Meaning the name 'shane' is already existing.
       
-      assertEquals("Name 'shane' is not unique", true, studentService.nameAlreayExists("shane"));
+      assertEquals("Name 'shane' is not unique", true, studentService.checkIfFirstNameAlreadyExist("shane"));
    }
    
    
    @Test
    public void hasHasUniqueFirstName(){
       studentService = mock(StudentService.class);
-      when(studentService.nameAlreayExists("shane")).thenReturn(false);
+      when(studentService.checkIfFirstNameAlreadyExist("shane")).thenReturn(false);
       
-      assertEquals("Name 'shane' is unique", false, studentService.nameAlreayExists("shane"));
+      assertEquals("Name 'shane' is unique", false, studentService.checkIfFirstNameAlreadyExist("shane"));
    }
 }

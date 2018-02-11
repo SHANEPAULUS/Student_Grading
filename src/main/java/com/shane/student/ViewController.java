@@ -2,6 +2,7 @@ package com.shane.student;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class ViewController extends GenericController {
          }
          
          overallAverage = overallAverage / studentCount;
-         this.model.put("overallAverage", overallAverage);
+         this.model.put("overallAverage", new DecimalFormat(".##").format(overallAverage));
       }
       
       this.model.put("studentList", studentList);

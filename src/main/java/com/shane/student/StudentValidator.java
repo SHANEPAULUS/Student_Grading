@@ -40,7 +40,7 @@ public class StudentValidator implements Validator {
          
          if(StringUtils.isEmpty(student.getFirstName())){
             errors.rejectValue("firstName", "error.value.mandatory", new Object[]{new DefaultMessageSourceResolvable("FirstName")}, "error.value.mandatory");
-         }else if(this.studentService.nameAlreayExists(student.getFirstName())){
+         }else if(this.studentService.checkIfFirstNameAlreadyExist(student.getFirstName())){
             errors.rejectValue("firstName", "error.unique.value.required", new Object[]{new DefaultMessageSourceResolvable("FirstName")}, "error.unique.value.required");
          }
       }

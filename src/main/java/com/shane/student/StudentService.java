@@ -59,7 +59,7 @@ public class StudentService implements AbstractService<Student> {
       return this.studentDAO.findByName(lookupName);
    }
    
-   public boolean nameAlreayExists(final String lookupName){
+   public boolean checkIfFirstNameAlreadyExist(final String lookupName){
       List<Student> studentList = new LinkedList<>(findByName(lookupName));
       return studentList.stream().anyMatch(s -> isStringMatch(s.getFirstName(), lookupName));
    }
