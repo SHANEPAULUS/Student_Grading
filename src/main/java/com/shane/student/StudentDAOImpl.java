@@ -39,6 +39,14 @@ public class StudentDAOImpl implements AbstractDAO<Student> {
       return student;
    }
    
+   
+   @Override
+   public Student update(final Student newStudent){
+      this.sessionFactory.getCurrentSession().update(newStudent);
+      return newStudent;
+   }
+   
+   
    @Override
    public Student delete(final Student newStudent){
       this.sessionFactory.getCurrentSession().delete(newStudent);

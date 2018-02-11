@@ -13,6 +13,8 @@
    <h2><spring:message code="Student"/>&#160;<spring:message code="View"/></h2>
    <hr>
    <br>
+   
+   <%@include file="../include/notificationMessage.jsp"%>
 </div>
 
 <div style="padding-bottom: 30px;">
@@ -53,6 +55,13 @@
          <tr>
             <td><spring:message code="Age"/></td>
             <td>${student.age}</td>
+         </tr>
+      </c:if>
+      
+      <c:if test="${!empty student.score && student.score > 0.0}">
+         <tr>
+            <td><spring:message code="Score"/></td>
+            <td>${student.score}</td>
          </tr>
       </c:if>
    </table>

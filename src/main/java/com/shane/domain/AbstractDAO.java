@@ -11,6 +11,7 @@ import java.util.List;
 public interface AbstractDAO<T> {
    
    T save(T t);
+   T update(T t);
    T delete(T t);
    T findOne(int pk);
    List<T> findAll();

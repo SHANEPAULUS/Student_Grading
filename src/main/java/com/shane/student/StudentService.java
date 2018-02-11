@@ -38,6 +38,12 @@ public class StudentService implements AbstractService<Student> {
       return this.studentDAO.save(newStudent);
    }
    
+   
+   @Override
+   public Student update(final Student newStudent){
+      return this.studentDAO.update(newStudent);
+   }
+   
    @Override
    public Student delete(final Student newStudent){
       return this.studentDAO.delete(newStudent);

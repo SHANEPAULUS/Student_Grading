@@ -8,7 +8,7 @@
       <style type="text/css">
          .navigationButton{
             background-color: lightgreen;
-            width: 60px;
+            /*width: 60px;*/
             border: 1px solid black;
             text-align: center;
          }
