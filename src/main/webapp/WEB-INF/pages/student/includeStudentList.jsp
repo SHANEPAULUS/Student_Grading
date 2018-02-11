@@ -23,5 +23,14 @@
             </td>
          </tr>
       </c:forEach>
+      
+      <tr>
+         <td colspan="2">
+            <spring:message code="OverallAverage"/>
+         </td>
+         <td>
+            ${overallAverage}
+         </td>
+      </tr>
    </table>
 </c:if>

@@ -1,5 +1,6 @@
 package com.shane.student;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -14,6 +15,15 @@ import org.springframework.validation.Validator;
 
 @Controller("studentValidator")
 public class StudentValidator implements Validator {
+   
+   private StudentService studentService;
+   
+   
+   @Autowired
+   public StudentValidator(final StudentService newStudentService){
+      this.studentService = newStudentService;
+   }
+   
    
    @Override
    public boolean supports(final Class<?> newClass){
@@ -30,6 +40,8 @@ public class StudentValidator implements Validator {
          
          if(StringUtils.isEmpty(student.getFirstName())){
             errors.rejectValue("firstName", "error.value.mandatory", new Object[]{new DefaultMessageSourceResolvable("FirstName")}, "error.value.mandatory");
+         }else if(this.studentService.nameAlreayExists(student.getFirstName())){
+            errors.rejectValue("firstName", "error.unique.value.required", new Object[]{new DefaultMessageSourceResolvable("FirstName")}, "error.unique.value.required");
          }
       }
    }

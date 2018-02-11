@@ -1,5 +1,6 @@
 package com.shane.student;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.shane.domain.AbstractDAO;
@@ -56,5 +57,15 @@ public class StudentService implements AbstractService<Student> {
    
    public List<Student> findByName(final String lookupName){
       return this.studentDAO.findByName(lookupName);
+   }
+   
+   public boolean nameAlreayExists(final String lookupName){
+      List<Student> studentList = new LinkedList<>(findByName(lookupName));
+      return studentList.stream().anyMatch(s -> isStringMatch(s.getFirstName(), lookupName));
+   }
+   
+   
+   private boolean isStringMatch(final String string1, final String string2){
+      return string1 != null && string2 != null && string1.trim().equalsIgnoreCase(string2.trim());
    }
 }

@@ -65,11 +65,8 @@ public class EditController extends GenericController {
       final Double newScore = ServletRequestUtils.getDoubleParameter(request, "newScore", 0.0);
       final Student student = this.studentService.read(ServletRequestUtils.getIntParameter(request, "pk", DomainObject.NEW_OBJECT_PK));
       
-      System.out.println("oldScore >> " + oldScore + "\tnewScore >> " + newScore);
-      
       student.setScore(newScore);
       this.studentService.update(student);
-      
       this.model.put("student", student);
       
       if(student.getScore() != null){
@@ -95,9 +92,11 @@ public class EditController extends GenericController {
       ModelAndView modelAndView;
       this.validator.validate(student, bindingResult);
       
+      System.out.println("result.hasErrors >> " + bindingResult.hasErrors());
+      
       if(bindingResult.hasErrors()){
          loadModelProperties(student);
-         modelAndView = new ModelAndView("redirect:/studentEdit.htm?pk=" + student.getPk(), this.model);
+         modelAndView = new ModelAndView("student/studentEdit", this.model);
       }else{
          final Student savedStudent = this.studentService.save(student);
          

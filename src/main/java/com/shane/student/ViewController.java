@@ -2,6 +2,7 @@ package com.shane.student;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +77,23 @@ public class ViewController extends GenericController {
    
    @GetMapping("/studentListView.htm")
    public ModelAndView studentListView(){
-      this.model.put("studentList", this.studentService.findAll());
+      List<Student> studentList = new LinkedList<>(this.studentService.findAll());
+      Double overallAverage = 0.0;
+      
+      if(!studentList.isEmpty() && studentList.stream().anyMatch(s -> s.getScore() != null && s.getScore() > 0.0)){
+         final int studentCount = studentList.size();
+         
+         for(Student student : studentList){
+            if(student.getScore() != null && student.getScore() > 0.0){
+               overallAverage += student.getScore();
+            }
+         }
+         
+         overallAverage = overallAverage / studentCount;
+         this.model.put("overallAverage", overallAverage);
+      }
+      
+      this.model.put("studentList", studentList);
       
       return new ModelAndView("student/studentListView", this.model);
    }
